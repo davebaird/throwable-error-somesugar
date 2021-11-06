@@ -5,11 +5,16 @@
 # SYNOPSIS
 
     package MyExceptions ;
+    use v5.10 ;
+    use warnings ;
+
+    use Moo ;
+    extends 'Throwable::Error::SomeSugar' ;
 
     package SystemError ;
     use Types::Standard qw( Int ) ;
     use Moo ;
-    extends 'Throwable::Error::SomeSugar' ;
+    extends 'MyExceptions' ;
     has code           => ( is => 'ro', isa => Int->where('$_ >= 0'), default => 1 ) ;
     has '+description' => ( default => 'A system error' ) ;
 
