@@ -26,6 +26,8 @@
     has '+description' => ( default => 'A file error' ) ;
     has file           => ( is => 'ro', required => 1, isa => InstanceOf['Path::Tiny'] ) ;
 
+    1 ;
+
 Somewhere else:
 
     use MyExceptions ;
