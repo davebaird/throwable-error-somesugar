@@ -93,10 +93,31 @@ sub file    { shift->stack_trace->frame(0)->filename  }
 sub line    { shift->stack_trace->frame(0)->line  }
 
 
+sub first_line {
+    ( split /\n/, shift->message )[0] ;
+    }
+
+
 sub has_tags {
     my ( $self, @wanted ) = @_ ;
-    $self->has_tag($_) || return 0 for @wanted ;
+
+    # $self->has_tag($_) || return 0 for @wanted ;
+    foreach my $tag (@wanted) {
+        return 0 unless $self->has_tag($tag) ;
+        }
+
     return 1 ;
+    }
+
+
+sub has_any_tag {
+    my ( $self, @offered ) = @_ ;
+
+    foreach my $tag (@offered) {
+        return 1 if $self->has_tag($tag) ;
+        }
+
+    return 0 ;
     }
 
 around BUILDARGS => sub {
